@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 
-const Register = () => {
+const Signup = () => {
   const [data,setData]=useState({
     name:"",
     email:"",
@@ -43,7 +43,7 @@ const Register = () => {
   return (
     <div className='bg-zinc-900 w-full min-h-screen text-white text-xl '>
         <div className='flex flex-col w-full min-h-screen justify-center items-center'>
-        <h2 className='mb-5 text-2xl tracking-tighter	'>Register </h2>
+        <h2 className='mb-5 text-2xl tracking-tighter	'>Sign up </h2>
         <form action="" method='post' onSubmit={handleSubmit} className=' flex flex-col gap-y-5'>
             <input type="text" onChange={handleData}  value={data.name} className='bg-zinc-700 rounded-md px-3 py-2 outline-none' name='name' placeholder='Name' />
             <input type="email" onChange={handleData}  value={data.email} className='bg-zinc-700 rounded-md px-3 py-2 outline-none' name='email' placeholder='Email' />
@@ -55,4 +55,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Signup

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/header';
@@ -28,12 +29,8 @@ const Chat = () => {
         formData.append("prompt", prompt);
         formData.append("file", file);
   
-        const response = await axios.post("/upload", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-  
+        const response = await axios.post("http://localhost:4000/upload", formData);
+        console.log(response);
         if (response.status === 200) {
           console.log("File and prompt successfully uploaded");
         } else {
@@ -48,8 +45,8 @@ const Chat = () => {
   return (
     <>
     <div className='bg-zinc-800 h-screen w-screen relative text-white'>
-        <div className='absolute top-0 left-0 right-0'><Header/></div>
-        <div className='absolute top-10 left-0 right-0'><Result/></div>
+        <div className=''><Header/></div>
+        <div className=''><Result/></div>
       <div className='absolute bottom-0 w-full flex pb-4'>
         <div className='flex items-center justify-center w-full space-x-4 py-8 p-4 rounded-t-md'>
           <input type="text" value={prompt} onChange={handlePrrompt} className='px-2 py-3 rounded-md outline-none bg-zinc-600 w-2/3' />

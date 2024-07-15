@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors"
+import multer from "multer"
 
 const app=express();
-
+const upload=multer({dest:"uploads/"})
 
 app.use(cors());
 app.use(express.json());
@@ -44,10 +45,25 @@ app.use(express.urlencoded({ extended: true }));
 // {
     
 // })
- 
-app.post("/upload",(req,res)=>
+ app.get("/",(req,res)=>
 {
-
+    res.send("Server is Working")
 })
+const data=[];
+app.post("/upload", upload.single("file"), (req, res) => {
+    const prompt = req.body.prompt;
+    const file = req.file;
+    
+    if (!prompt || !file) {
+      return res.status(400).send("Missing prompt or file");
+    }
+  
+    console.log("Received prompt:", prompt);
+    console.log("Received file:", file);
+  
+    // Process the file and prompt as needed
+    res.send("File and prompt successfully uploaded");
+  });
+  
 
 app.listen(process.env.PORT || 4000);
