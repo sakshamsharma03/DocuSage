@@ -45,54 +45,56 @@
 // };
 
 // export default PdfReader;
-import React, { useState } from 'react';
-import axios from "axios"
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { ThemeContext } from '../context/theme'; // Import ThemeContext
 
 const PdfReader = () => {
   const [file, setFile] = useState(null); // Use camelCase for the state variable
-  const [message,setMessage]=useState('');
+  const [message, setMessage] = useState('');
+  
+  // Access the theme from ThemeContext
+  const { theme } = useContext(ThemeContext);
+
   // Function to handle file input change
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0]; // Get the first selected file
     if (selectedFile) {
-      console.log('Selected file:', selectedFile);
       setFile(selectedFile);
-      // Log after updating to view the current file object
-      console.log(selectedFile);
-      // Additional logic to handle the file can be added here
-       
-
+      console.log('Selected file:', selectedFile); // Log file for debugging
     }
   };
 
   // Function to trigger the file input click programmatically
   const handleButtonClick = () => {
     document.getElementById('upload-pdf').click();
-   
-    
   };
-  const handleSubmit = async()=>{
-    const formData=new FormData();
-    formData.append('file',file);
+
+  // Function to handle form submission and file upload
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
-     const response= await axios.post("http://localhost:8000/upload_pdf",formData,{
-       headers:{
-         'Content-Type':'multipart/form-data',
-       }
-     });
-     setMessage(response.detail);
+      const response = await axios.post('http://localhost:8000/upload_pdf', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setMessage(response.data.detail);
     } catch (error) {
-     setMessage('File upload failed.');
-     console.error(error);
+      setMessage('File upload failed.');
+      console.error(error);
     }
-  }
+  };
 
   return (
     <>
       {/* Conditionally display the file name */}
-      <div className='mb-2 track-tighter  '>{file && file.name}</div>
-      <div className='flex justify-between'>
+      <div className={`mb-2 track-tighter ${theme === 'light' ? 'text-black' : 'text-white'}`}>
+        {file && file.name}
+      </div>
+      <div className='flex gap-[16px]'>
         {/* Hidden file input field */}
         <input
           type="file"
@@ -104,22 +106,23 @@ const PdfReader = () => {
         {/* Button to trigger the file input */}
         <button
           className={`rounded-md px-3 py-2 ${
-            theme === 'light' ? 'bg-slate-300 text-black' : 'bg-blue-700 text-white'
+            theme === 'light' ? 'bg-slate-300 text-black hover:bg-slate-500 hover:text-white' : 'bg-blue-700 text-white hover:bg-blue-600'
           }`}
           onClick={handleButtonClick}
         >
-          Upload 
+          Upload
         </button>
         <button
-          className={`rounded-md px-3  py-2 ${
-            theme === 'light' ? 'bg-slate-300 text-black' : 'bg-blue-700 text-white'
+          className={`rounded-md px-3 py-2 ${
+            theme === 'light' ? 'bg-slate-300 text-black hover:bg-slate-500 hover:text-white' : 'bg-blue-700 text-white hover:bg-blue-600'
           }`}
           onClick={handleSubmit}
         >
-          Submit 
+          Submit
         </button>
-        {message}
+     
       </div>
+      <div className={`mt-[8px] ml-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{message}</div>
     </>
   );
 };

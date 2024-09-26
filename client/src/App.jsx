@@ -13,12 +13,10 @@ function App() {
 
   return (
     <ThemeProvider>
-    <div className='flex gap-20'>
-
-    
-    <SideBar/>
-    <AIChat/>
-    </div>
+      <div className='flex gap-[20px]'>
+        <SideBar/>
+        <AIChat/>
+      </div>
     </ThemeProvider>
   )
 }
