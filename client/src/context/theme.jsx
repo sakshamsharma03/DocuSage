@@ -22,10 +22,7 @@
 import React, { createContext, useState, useContext } from 'react';
 
 // Create the context
-const ThemeContext = createContext();
-
-// Create a custom hook to access the theme
-export const useTheme = () => useContext(ThemeContext);
+export const ThemeContext = createContext();
 
 // Create the provider component
 export const ThemeProvider = ({ children }) => {

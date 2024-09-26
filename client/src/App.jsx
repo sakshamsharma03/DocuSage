@@ -12,14 +12,14 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <ThemeProvider>
     <div className='flex gap-20'>
 
     
     <SideBar/>
     <AIChat/>
     </div>
-    </>
+    </ThemeProvider>
   )
 }
 
