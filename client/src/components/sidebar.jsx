@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaMoon } from "react-icons/fa";
 import { GoSun } from "react-icons/go";
 import PdfReader from './PdfReader';
-import { useTheme } from '../context/theme';
+import { ThemeContext } from '../context/theme';
 
 const SideBar = () => {
-    const [theme, toggleTheme] = useTheme(); // 'light' or 'dark'
+    const {theme, toggleTheme} = useContext(ThemeContext); // 'light' or 'dark'
 
    
 
@@ -18,7 +18,7 @@ const SideBar = () => {
                 </button>
             </div>
             <div className='my-20 mx-20'>
-            <PdfReader />
+            {/* <PdfReader /> */}
              </div>
         </div>
     )
