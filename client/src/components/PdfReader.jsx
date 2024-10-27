@@ -122,7 +122,7 @@ const PdfReader = () => {
         </button>
      
       </div>
-      <div className={`mt-[8px] ml-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{message}</div>
+      <div className={`mt-[8px] tracking-tighter ml-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{message}</div>
     </>
   );
 };

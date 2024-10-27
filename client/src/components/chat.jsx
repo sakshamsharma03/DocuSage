@@ -13,8 +13,9 @@ const AIChat = () => {
     if (!query.trim()) return;
 
     // Update chat history with user's message
-    const userMessage = { role: 'user', message: query };
+    const userMessage = { role: 'USER', message: query };
     setChatHistory([...chatHistory, userMessage]);
+    console.log("before triggering ",chatHistory)
 
     setIsLoading(true);
 
@@ -29,12 +30,13 @@ const AIChat = () => {
 
       // Update the chat history with the AI response
       const aiMessage = {
-        role: 'ai',
+        role: 'CHATBOT',
         message: response_text,
         citations: citations || [],
       };
 
-      setChatHistory([...updatedChatHistory, aiMessage]);
+      setChatHistory([...updatedChatHistory,aiMessage]);
+      
     } catch (error) {
       console.error('Error with chat API:', error.message);
     } finally {
@@ -42,25 +44,27 @@ const AIChat = () => {
       setQuery(''); // Clear the input field
     }
   };
-
+  
   return (
-    <div className={`m-[20px] flex flex-col w-full max-w-4xl mx-auto p-4 rounded-2xl ${theme === 'light' ? 'bg-slate-100 text-black' : 'bg-gray-900 text-white'}`}>
+    <div className={` flex flex-col w-full   p-4  ${theme === 'light' ? 'bg-slate-100 text-black' : 'bg-gray-900 text-white'}`}>
+     { console.log(chatHistory)}
       <div className="flex-1 overflow-y-auto mb-4 space-y-4">
         {chatHistory.map((chat, index) => (
           <div
             key={index}
             className={`p-3 rounded-lg ${
-              chat.role === 'user'
+              chat.role === 'USER'
                 ? (theme === 'light' ? 'bg-blue-100 text-blue-800 self-end' : 'bg-blue-700 text-white self-end')
                 : (theme === 'light' ? 'bg-gray-200 text-gray-800 self-start' : 'bg-gray-700 text-gray-200 self-start')
             }`}
           >
-            <p>{chat.message}</p>
-            {chat.role === 'ai' && chat.citations?.length > 0 && (
+             <p>{chat.message}</p>
+           
+            {/* {chat.role === 'ai' && chat.citations?.length > 0 && (
               <small className={`text-gray-500 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 Citations: {chat.citations.join(', ')}
               </small>
-            )}
+            )} */}
           </div>
         ))}
       </div>

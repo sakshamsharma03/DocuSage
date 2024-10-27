@@ -53,7 +53,7 @@ app.post('/upload_pdf', upload.single('file'), async (req, res) => {
         }
 
         documents = [{ title: req.file.originalname, text: fileContent }];
-        res.send({ detail: 'PDF uploaded and processed successfully' });
+        res.send({ detail: 'PDF uploaded and processed ' });
     } catch (error) {
         return res.status(500).send({ detail: `File upload error: ${error.message}` });
     }
